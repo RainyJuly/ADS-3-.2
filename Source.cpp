@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+const double factor = 1.2773309;
 
 
 struct stats {
@@ -46,11 +47,30 @@ stats shell_sort(std::vector<int>& data){
     return stat;
 }
 
+stats comb_sort(std::vector<int>& data){
+	stats stat;
+	int step = data.size() - 1; // шаг сортировки
+    while (step >= 1) {
+		for (size_t i = 0; i + step < data.size(); i++) {
+            stat.comparison_count++;
+			if (data[i] > data[i + step]) {
+                stat.copy_count++; 
+				int tmp = data[i];
+				data[i] = data[i + step];
+				data[i + step] = tmp;
+            }
+		}
+		step /= factor;
+	}
+	return stat;
+};
+
 int main() {
 
 	stats counter;
 	std::vector<int> v1 = { 9,1,-7,9,1,4,5,2,10};
 	std::vector<int> v2 = { 9,1,7,9,1,4,5,-2,10,8};
+	std::vector<int> v3 = { 9,1,7,9,-1,4,5,2,10};
 	for (auto i = v1.begin(); i != v1.end(); ++i)
 	{
 		std::cout << *i << " ";
@@ -78,5 +98,19 @@ int main() {
 	std::cout << "Comparisons:" << counter.comparison_count << std::endl;
 	std::cout << "Copies:" << counter.copy_count << std::endl;
 	std::cout << "\n";
+	for (auto i = v3.begin(); i != v3.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	counter = comb_sort(v3);
+	for (auto i = v3.begin(); i != v3.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	std::cout << "Comparisons:" << counter.comparison_count << std::endl;
+	std::cout << "Copies:" << counter.copy_count << std::endl;
+}
 
 
