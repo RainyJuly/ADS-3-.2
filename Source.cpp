@@ -46,5 +46,37 @@ stats shell_sort(std::vector<int>& data){
     return stat;
 }
 
+int main() {
+
+	stats counter;
+	std::vector<int> v1 = { 9,1,-7,9,1,4,5,2,10};
+	std::vector<int> v2 = { 9,1,7,9,1,4,5,-2,10,8};
+	for (auto i = v1.begin(); i != v1.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	counter = bubble_sort(v1);
+	for (auto i = v1.begin(); i != v1.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	std::cout << "Comparisons:" << counter.comparison_count << std::endl;
+	std::cout << "Copies:" << counter.copy_count << std::endl;
+	for (auto i = v2.begin(); i != v2.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	counter = shell_sort(v2);
+	for (auto i = v2.begin(); i != v2.end(); ++i)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << "\n";
+	std::cout << "Comparisons:" << counter.comparison_count << std::endl;
+	std::cout << "Copies:" << counter.copy_count << std::endl;
+	std::cout << "\n";
 
 
